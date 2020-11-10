@@ -20,7 +20,11 @@ public class GameManager : MonoBehaviour
    [Header("Cat旋轉速度"), Range(1f, 60f)]
    public float turnC = 1.2f;
    [Header("縮放"), Range(0.01f, 1f)]
-    public float size = 0.06f;
+   public float size = 0.06f;
+   [Header("貓咪動畫元件")]
+   public Animator aniCat;
+   [Header("狗狗動畫元件")]
+   public Animator aniDog;
 
    //Start  開始事件 
    //print-事件 print("")
@@ -30,6 +34,10 @@ public class GameManager : MonoBehaviour
    //Rotate 旋轉 Range (-,-) 範圍限制
    //localScale 縮放
 
+        //public float test1= 1;
+        //test1=Mathf.Clamp(test1, 0.5f, 10f);
+        //public float test2 = 1;
+        //print(Mathf.Clamp(test2, 0, 10));
    
    private void Start()
    {
@@ -43,8 +51,23 @@ public class GameManager : MonoBehaviour
 
     dog.Rotate(0,  joystick. Horizontal * turnD , 0);
     cat.Rotate(0, joystick. Horizontal*turnC , 0);
+    //+=遞增
     dog.localScale += new Vector3 (1, 1, 1) * joystick.Vertical * size;
-    cat.localScale = new Vector3(1, 1, 1) * joystick.Vertical;
+    dog.localScale = new Vector3(1, 1, 1) * Mathf.Clamp(dog.localScale.x, 0.3f, 3f);
+    cat.localScale += new Vector3(1, 1, 1) * joystick.Vertical*size;
+    cat.localScale = new Vector3(1, 1, 1) * Mathf.Clamp(cat.localScale.x, 0.3f, 3f);
    }
+
+    //定義方法 Method
+    //定義程式區塊1 : 修飾詞 類型 名稱()  {語法}
+    //public void attack() {print("攻擊"); aniCAT,SetTrigger(攻擊);}
+    //定義程式區塊2 : 修飾詞 類型 名稱(參數1,參數2,.....)  {語法}
+    //public void PlayAnimation(string aniName) {print(aniName); aniCat.SetTrigger(aniName); }
+    public void PlayAnimation(string aniName)
+    {
+        print(aniName);
+        aniCat.SetTrigger(aniName);
+        aniDog.SetTrigger(aniName);
+    }
 
 }
